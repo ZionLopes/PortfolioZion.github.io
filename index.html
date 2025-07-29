@@ -216,6 +216,16 @@
                     </button>
                 </form>
                 <div class="mt-12 flex justify-center space-x-8">
+                    <!-- In your contact section HTML -->
+<form id="contact-form" class="space-y-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <input type="text" id="contact-name" placeholder="Your Name" class="..." required>
+        <input type="email" id="contact-email" placeholder="Your Email" class="..." required>
+    </div>
+    <textarea id="contact-message" placeholder="Your Message" rows="5" class="..." required></textarea>
+    <button type="submit" class="...">Send Message</button>
+</form>
+<p id="success-message" class="text-green-400 mt-4 hidden">Message sent successfully!</p>
                     <!-- Social Links -->
                     <a href="https://github.com/your-username" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-transform duration-300 hover:scale-125">
                         <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.492.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.942.359.308.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
@@ -238,6 +248,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
 
     <script>
+        
         // --- GSAP & THREE.JS INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {
             
@@ -392,6 +403,54 @@
 
             initThree();
         });
+        // Add this code inside your main script tag
+const contactForm = document.getElementById('contact-form');
+const successMessage = document.getElementById('success-message');
+
+contactForm.addEventListener('submit', (e) => {
+    e.preventDefault(); // Prevent the form from reloading the page
+
+    const name = document.getElementById('contact-name').value;
+    const email = document.getElementById('contact-email').value;
+    const message = document.getElementById('contact-message').value;
+
+    // Add a new document with a generated id to a collection called "contacts"
+    db.collection("contacts").add({
+        name: name,
+        email: email,
+        message: message,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp() // Adds a server timestamp
+    })
+    .then(() => {
+        console.log("Document successfully written!");
+        contactForm.reset(); // Clear the form
+        successMessage.classList.remove('hidden'); // Show the success message
+    })
+    .catch((error) => {
+        console.error("Error writing document: ", error);
+        alert("There was an error sending your message. Please try again.");
+    });
+});
+        <!-- Add these before your main script tag -->
+<script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+    <script>
+    // PASTE YOUR FIREBASE CONFIG OBJECT HERE
+    const firebaseConfig = {
+      apiKey: "AIzaSy...",
+      authDomain: "your-project-id.firebaseapp.com",
+      projectId: "your-project-id",
+      storageBucket: "your-project-id.appspot.com",
+      messagingSenderId: "...",
+      appId: "..."
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore(); // Get a reference to the Firestore database
+
+    // ... the rest of your Three.js and GSAP code follows
+</script>
     </script>
 </body>
 </html>
