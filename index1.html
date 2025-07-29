@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zion Lopes - Creative Technologist</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom styles for a high-end feel */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #02000a; /* Deep space blue */
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        /* The canvas is the fixed background */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            outline: none;
+        }
+
+        /* Content sections scroll over the canvas */
+        .content-section {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 6rem 1.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        /* Advanced glassmorphism effect */
+        .glass-card {
+            background: rgba(10, 5, 20, 0.4);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(2, 0, 10, 0.37);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 25px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #02000a; }
+        ::-webkit-scrollbar-thumb { background: #4338ca; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #4f46e5; }
+
+        /* GSAP animation helper */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Loading Screen -->
+    <div id="loader" class="fixed inset-0 bg-[#02000a] z-50 flex flex-col justify-center items-center transition-opacity duration-1000">
+        <div class="w-20 h-20 border-4 border-dashed rounded-full animate-spin border-indigo-500"></div>
+        <p class="mt-6 text-xl text-gray-300 tracking-wider">Entering the Cosmos...</p>
+    </div>
+
+    <!-- 3D Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-20 p-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass-card px-6 py-3" style="border-radius: 999px;">
+            <a href="#" class="text-xl font-bold tracking-wider hover:text-indigo-400 transition-colors">ZION LOPES</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="hover:text-indigo-400 transition-colors">About</a>
+                <a href="#skills" class="hover:text-indigo-400 transition-colors">Skills</a>
+                <a href="#portfolio" class="hover:text-indigo-400 transition-colors">Portfolio</a>
+                <a href="#contact" class="hover:text-indigo-400 transition-colors">Contact</a>
+            </div>
+            <a href="#contact" class="hidden md:inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/30">
+                Let's Talk
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <main id="content-wrapper" class="relative z-1">
+        
+        <!-- Hero Section -->
+        <header class="content-section text-center">
+            <h1 id="hero-title" class="text-6xl md:text-8xl lg:text-9xl font-black leading-tight mb-4 opacity-0">
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-400">
+                    Zion Lopes
+                </span>
+            </h1>
+            <p id="hero-subtitle" class="text-xl md:text-2xl text-gray-300 max-w-3xl opacity-0">
+                Creative Technologist & Digital Architect building high-performance, immersive experiences at the intersection of code and design.
+            </p>
+            <div id="hero-scroll" class="mt-12 opacity-0">
+                <svg class="animate-bounce w-10 h-10 text-gray-400 mx-auto" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </div>
+        </header>
+
+        <!-- About Section -->
+        <section id="about" class="content-section">
+            <div class="glass-card p-8 md:p-12 w-full max-w-5xl text-center reveal-up">
+                <h2 class="text-5xl font-bold mb-8">About Me</h2>
+                <p class="text-lg text-gray-300 leading-relaxed max-w-3xl mx-auto">
+                    I'm Zion, a developer driven by a relentless passion for building things that are not only powerful and efficient but also beautiful and intuitive. My expertise lies in full-stack development, with a special focus on creating dynamic front-end interfaces and robust back-end systems. I believe in writing clean, scalable code and leveraging modern technologies to solve complex problems. This digital space is a testament to my dedication to the craft.
+                </p>
+            </div>
+        </section>
+        
+        <!-- Skills Section -->
+        <section id="skills" class="content-section">
+            <div class="w-full max-w-6xl text-center reveal-up">
+                <h2 class="text-5xl font-bold mb-12">Technical Skills</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                    <!-- Skill Item -->
+                    <div class="flex flex-col items-center p-4">
+                        <svg class="w-16 h-16 mb-3 text-cyan-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0L7.86 6.88c-.3.98-.98 1.66-1.96 1.96l-3.71.65c-1.56.27-2.18 2.11-1.01 3.21l2.76 2.54c.77.71 1.12 1.73.95 2.73l-.79 4.29c-.27 1.5.91 2.72 2.32 2.02l3.43-1.89c.9-.5 1.98-.5 2.88 0l3.43 1.89c1.4.7 2.59-.52 2.32-2.02l-.79-4.29c-.17-1-.02-2.02.75-2.73l2.76-2.54c1.17-1.1.55-2.94-1.01-3.21l-3.71-.65c-.98-.3-1.66-.98-1.96-1.96L11.49 3.17z" clip-rule="evenodd"></path></svg>
+                        <h3 class="text-xl font-semibold">JavaScript</h3>
+                        <p class="text-gray-400">ES6+, TypeScript</p>
+                    </div>
+                    <!-- Skill Item -->
+                    <div class="flex flex-col items-center p-4">
+                        <svg class="w-16 h-16 mb-3 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.022 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
+                        <h3 class="text-xl font-semibold">React & Next.js</h3>
+                        <p class="text-gray-400">State Management</p>
+                    </div>
+                    <!-- Skill Item -->
+                    <div class="flex flex-col items-center p-4">
+                        <svg class="w-16 h-16 mb-3 text-red-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3.293 1.293a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L7.586 10 5.293 7.707a1 1 0 010-1.414zM11 12a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path></svg>
+                        <h3 class="text-xl font-semibold">Node.js & Python</h3>
+                        <p class="text-gray-400">Express, Django</p>
+                    </div>
+                    <!-- Skill Item -->
+                    <div class="flex flex-col items-center p-4">
+                         <svg class="w-16 h-16 mb-3 text-purple-400" fill="currentColor" viewBox="0 0 20 20"><path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path></svg>
+                        <h3 class="text-xl font-semibold">Databases</h3>
+                        <p class="text-gray-400">SQL, NoSQL</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="content-section">
+            <div class="w-full max-w-6xl text-center reveal-up">
+                <h2 class="text-5xl font-bold mb-12">Featured Projects</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <!-- Project 1 -->
+                    <div class="glass-card p-6 text-left">
+                        <h3 class="text-2xl font-bold mb-3">QuantumLeap AI</h3>
+                        <p class="text-gray-400 mb-4">A SaaS platform leveraging machine learning to provide predictive analytics for e-commerce businesses.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Next.js</span>
+                            <span class="bg-green-900/50 text-green-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python (Flask)</span>
+                            <span class="bg-purple-900/50 text-purple-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">PostgreSQL</span>
+                        </div>
+                        <a href="#" class="text-indigo-400 hover:underline font-semibold">View Project &rarr;</a>
+                    </div>
+                    <!-- Project 2 -->
+                    <div class="glass-card p-6 text-left">
+                        <h3 class="text-2xl font-bold mb-3">Nova Viz</h3>
+                        <p class="text-gray-400 mb-4">An interactive 3D data visualization tool for astronomical data, built with Three.js and React.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-700 text-gray-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Three.js</span>
+                            <span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">React</span>
+                            <span class="bg-red-900/50 text-red-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">D3.js</span>
+                        </div>
+                        <a href="#" class="text-indigo-400 hover:underline font-semibold">View Project &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="content-section">
+            <div class="glass-card p-8 md:p-12 w-full max-w-4xl text-center reveal-up">
+                <h2 class="text-5xl font-bold mb-4">Get In Touch</h2>
+                <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
+                    I'm currently available for freelance work and open to discussing new projects. Let's create something amazing together.
+                </p>
+                <form action="#" method="POST" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <input type="text" placeholder="Your Name" class="bg-gray-900/50 border border-gray-700 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <input type="email" placeholder="Your Email" class="bg-gray-900/50 border border-gray-700 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <textarea placeholder="Your Message" rows="5" class="bg-gray-900/50 border border-gray-700 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/30 w-full md:w-auto">
+                        Send Message
+                    </button>
+                </form>
+                <div class="mt-12 flex justify-center space-x-8">
+                    <!-- Social Links -->
+                    <a href="https://github.com/your-username" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-transform duration-300 hover:scale-125">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.492.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.942.359.308.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
+                    </a>
+                    <a href="https://linkedin.com/in/your-username" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-transform duration-300 hover:scale-125">
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
+                    </a>
+                    <a href="https://instagram.com/your-username" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-transform duration-300 hover:scale-125">
+                         <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.059 1.689.073 4.948.073s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z" /></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Three.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+
+    <script>
+        // --- GSAP & THREE.JS INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- GSAP Animations ---
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Hero entrance animation
+            gsap.to("#hero-title", { duration: 1.5, opacity: 1, y: 0, ease: "power3.out", delay: 0.5 });
+            gsap.to("#hero-subtitle", { duration: 1.5, opacity: 1, y: 0, ease: "power3.out", delay: 0.8 });
+            gsap.to("#hero-scroll", { duration: 1.5, opacity: 1, y: 0, ease: "power3.out", delay: 1.2 });
+
+            // Staggered reveal for sections
+            document.querySelectorAll('.reveal-up').forEach(elem => {
+                gsap.fromTo(elem, 
+                    { opacity: 0, y: 70 }, 
+                    { 
+                        opacity: 1, 
+                        y: 0, 
+                        duration: 1, 
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: elem,
+                            start: 'top 85%',
+                            toggleActions: 'play none none none'
+                        }
+                    }
+                );
+            });
+
+            // --- THREE.JS SCENE SETUP ---
+            let scene, camera, renderer, particles, nebulaParticles;
+            const mouse = new THREE.Vector2();
+
+            function initThree() {
+                // Scene
+                scene = new THREE.Scene();
+                scene.fog = new THREE.FogExp2(0x02000a, 0.0005);
+
+                // Camera
+                camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3000);
+                camera.position.z = 1000;
+
+                // Renderer
+                const canvas = document.getElementById('bg-canvas');
+                renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+                // Create particle systems
+                createStarfield();
+                createNebula();
+
+                // Event Listeners
+                window.addEventListener('resize', onWindowResize);
+                document.addEventListener('mousemove', onMouseMove);
+                window.addEventListener('scroll', onScroll);
+
+                animate();
+                
+                // Hide loader
+                const loader = document.getElementById('loader');
+                gsap.to(loader, { opacity: 0, duration: 1, onComplete: () => loader.style.display = 'none' });
+            }
+
+            function createStarfield() {
+                const particleCount = 20000;
+                const positions = new Float32Array(particleCount * 3);
+                for (let i = 0; i < particleCount; i++) {
+                    positions[i * 3] = (Math.random() - 0.5) * 4000;
+                    positions[i * 3 + 1] = (Math.random() - 0.5) * 4000;
+                    positions[i * 3 + 2] = (Math.random() - 0.5) * 4000;
+                }
+                const geometry = new THREE.BufferGeometry();
+                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                
+                const material = new THREE.PointsMaterial({
+                    size: 1.5,
+                    color: 0xaaaaaa,
+                    transparent: true,
+                    blending: THREE.AdditiveBlending,
+                    depthWrite: false,
+                });
+                particles = new THREE.Points(geometry, material);
+                scene.add(particles);
+            }
+
+            function createNebula() {
+                const particleCount = 5000;
+                const positions = new Float32Array(particleCount * 3);
+                const colors = new Float32Array(particleCount * 3);
+                const color1 = new THREE.Color(0x4338ca); // Indigo
+                const color2 = new THREE.Color(0x22d3ee); // Cyan
+
+                for (let i = 0; i < particleCount; i++) {
+                    positions[i * 3] = (Math.random() - 0.5) * 1000;
+                    positions[i * 3 + 1] = (Math.random() - 0.5) * 1000;
+                    positions[i * 3 + 2] = (Math.random() - 0.5) * 1000;
+                    
+                    const mixedColor = color1.clone().lerp(color2, Math.random());
+                    colors[i * 3] = mixedColor.r;
+                    colors[i * 3 + 1] = mixedColor.g;
+                    colors[i * 3 + 2] = mixedColor.b;
+                }
+                const geometry = new THREE.BufferGeometry();
+                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+                const material = new THREE.PointsMaterial({
+                    size: 2,
+                    vertexColors: true,
+                    transparent: true,
+                    blending: THREE.AdditiveBlending,
+                    opacity: 0.5,
+                    depthWrite: false,
+                });
+                nebulaParticles = new THREE.Points(geometry, material);
+                scene.add(nebulaParticles);
+            }
+
+            function onWindowResize() {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+
+            function onMouseMove(event) {
+                mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            }
+
+            function onScroll() {
+                const scrollY = window.scrollY;
+                camera.position.z = 1000 - scrollY * 1.5;
+            }
+
+            const clock = new THREE.Clock();
+            function animate() {
+                requestAnimationFrame(animate);
+                const elapsedTime = clock.getElapsedTime();
+
+                // Animate particles
+                particles.rotation.y = elapsedTime * 0.02;
+                nebulaParticles.rotation.y = -elapsedTime * 0.05;
+
+                // Parallax effect
+                camera.position.x += (mouse.x * 100 - camera.position.x) * 0.02;
+                camera.position.y += (mouse.y * 100 - camera.position.y) * 0.02;
+                camera.lookAt(scene.position);
+
+                renderer.render(scene, camera);
+            }
+
+            initThree();
+        });
+    </script>
+</body>
+</html>
