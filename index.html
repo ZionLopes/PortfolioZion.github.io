@@ -279,7 +279,8 @@
                     successMessage.classList.add('hidden');
                     errorMessage.classList.add('hidden');
 
-                    // Get form values
+                    // *** FIX: Get form values INSIDE the event listener ***
+                    // This ensures we get the current values when the user clicks submit.
                     const name = document.getElementById('contact-name').value;
                     const email = document.getElementById('contact-email').value;
                     const message = document.getElementById('contact-message').value;
@@ -470,4 +471,3 @@
     </script>
 </body>
 </html>
-
